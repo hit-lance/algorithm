@@ -13,10 +13,14 @@ vector<Point> EnumerateConvexHullSolver::Solve(vector<Point>& points) {
                 for (size_t l = k; l < n; ++l) {
                     size_t counters[4] = {i, j, k, l};
                     for (int m = 0; m < 4; ++m) {
-                        if (indexes.find(m) == indexes.end() &&
-                            CheckPointInTriangle(points[m], points[(m + 1) % 4], points[(m + 2) % 4],
-                                                 points[(m + 3) % 4])) {
-                            indexes.insert(m);
+                        if (indexes.find(m) == indexes.end()) {
+                            Point& p = points[counters[m]];
+                            Point& a = points[counters[(m + 1) % 4]];
+                            Point& b = points[counters[(m + 2) % 4]];
+                            Point& c = points[counters[(m + 3) % 4]];
+                            if (CheckPointInTriangle(p, a, b, c)) {
+                                indexes.insert(m);
+                            }
                         }
                     }
                 }
@@ -30,7 +34,6 @@ vector<Point> EnumerateConvexHullSolver::Solve(vector<Point>& points) {
             convex_hull.emplace_back(points[i]);
         }
     }
-
     return convex_hull;
 }
 
