@@ -4,4 +4,4 @@ cmake_minimum_required(VERSION 3.10)
 project(lab1)
 
 # add the executable
-add_executable(main main.cpp enumerate_convex_hull_solver.cpp)
+add_executable(main main.cpp enumerate_convex_hull_solver.cpp graham_convex_hull_solver.cpp)

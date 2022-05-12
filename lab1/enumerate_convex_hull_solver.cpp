@@ -3,6 +3,10 @@
 #include <unordered_set>
 
 vector<Point> EnumerateConvexHullSolver::Solve(vector<Point>& points) {
+    if (points.size() <= 3) {
+        return points;
+    }
+
     unordered_set<size_t> indexes;
 
     size_t n = points.size();

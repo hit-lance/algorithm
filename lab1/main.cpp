@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "enumerate_convex_hull_solver.h"
+#include "graham_convex_hull_solver.h"
 
 int main() {
     vector<Point> points{{1, 1}, {2, 2}, {2, 0}, {2, 4}, {3, 3}, {4, 2}};
