@@ -1,5 +1,6 @@
 #include "enumerate_convex_hull_solver.h"
 
+#include <iostream>
 #include <unordered_set>
 
 vector<Point> EnumerateConvexHullSolver::Solve(vector<Point>& points) {
@@ -12,18 +13,18 @@ vector<Point> EnumerateConvexHullSolver::Solve(vector<Point>& points) {
     size_t n = points.size();
 
     for (size_t i = 0; i < n; ++i) {
-        for (size_t j = i; j < n; ++j) {
-            for (size_t k = j; k < n; ++k) {
-                for (size_t l = k; l < n; ++l) {
+        for (size_t j = 0; j < i; ++j) {
+            for (size_t k = 0; k < j; ++k) {
+                for (size_t l = 0; l < k; ++l) {
                     size_t counters[4] = {i, j, k, l};
                     for (int m = 0; m < 4; ++m) {
-                        if (indexes.find(m) == indexes.end()) {
+                        if (indexes.find(counters[m]) == indexes.end()) {
                             Point& p = points[counters[m]];
                             Point& a = points[counters[(m + 1) % 4]];
                             Point& b = points[counters[(m + 2) % 4]];
                             Point& c = points[counters[(m + 3) % 4]];
                             if (CheckPointInTriangle(p, a, b, c)) {
-                                indexes.insert(m);
+                                indexes.insert(counters[m]);
                             }
                         }
                     }

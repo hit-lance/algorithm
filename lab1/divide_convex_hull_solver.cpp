@@ -7,13 +7,7 @@
 #include <numeric>
 #include <unordered_set>
 
-vector<Point> DivideConvexHullSolver::Solve(vector<Point>& points) {
-    if (points.size() <= 3) {
-        return points;
-    }
-
-    return Divide(points.begin(), points.end());
-}
+vector<Point> DivideConvexHullSolver::Solve(vector<Point>& points) { return Divide(points.begin(), points.end()); }
 
 vector<Point> DivideConvexHullSolver::Divide(vector<Point>::iterator left, vector<Point>::iterator right) {
     if (right - left < 3) {
@@ -23,7 +17,12 @@ vector<Point> DivideConvexHullSolver::Divide(vector<Point>::iterator left, vecto
     if (right - left == 3) {
         vector<Point> ch(left, right);
         if (isRight(ch[0], ch[1], ch[2])) {
-            swap(ch[0], ch[1]);
+            swap(ch[1], ch[2]);
+        }
+        auto p = min_element(ch.begin(), ch.end(), [](const Point& a, const Point& b) { return a.first < b.first; });
+        if (p != ch.begin()) {
+            swap(*p, ch[0]);
+            swap(ch[1], ch[2]);
         }
         return ch;
     }
