@@ -7,6 +7,7 @@
 int main() {
     vector<Point> points{{1, 1}, {2, 2}, {2, 0}, {2, 4}, {3, 3}, {4, 2}};
     ConvexHullSolver* enumerate_solver = new DivideConvexHullSolver();
+    // ConvexHullSolver* enumerate_solver = new GrahamConvexHullSolver();
 
     vector<Point> convex_hull = enumerate_solver->Solve(points);
     for (auto& p : convex_hull) {
