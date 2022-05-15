@@ -13,9 +13,9 @@ vector<Point> EnumerateConvexHullSolver::Solve(vector<Point>& points) {
     size_t n = points.size();
 
     for (size_t i = 0; i < n; ++i) {
-        for (size_t j = 0; j < i; ++j) {
-            for (size_t k = 0; k < j; ++k) {
-                for (size_t l = 0; l < k; ++l) {
+        for (size_t j = i+1; j < n; ++j) {
+            for (size_t k = j+1; k < n; ++k) {
+                for (size_t l = k+1; l < n; ++l) {
                     size_t counters[4] = {i, j, k, l};
                     for (int m = 0; m < 4; ++m) {
                         if (indexes.find(counters[m]) == indexes.end()) {
