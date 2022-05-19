@@ -9,7 +9,7 @@ void Rectangle(cv::Mat img, int row, int col, const cv::Scalar &color) {
 void Path(cv::Mat img, const std::vector<Location> &path) {
     for (size_t i = 1; i < path.size(); ++i) {
         cv::line(img, {path[i - 1].second * SIZE + SIZE / 2, path[i - 1].first * SIZE + SIZE / 2},
-                 {path[i].second * SIZE + SIZE / 2, path[i].first * SIZE + SIZE / 2}, {0, 128, 255}, 8, 16);
+                 {path[i].second * SIZE + SIZE / 2, path[i].first * SIZE + SIZE / 2}, {211, 85, 186}, 8, 16);
     }
 }
 

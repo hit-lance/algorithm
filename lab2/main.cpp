@@ -5,7 +5,7 @@
 #include "visualization.h"
 
 int main() {
-    std::ifstream fin("../data/map1.txt");
+    std::ifstream fin("../data/map2.txt");
     int m, n;
     fin >> m >> n;
 
@@ -20,18 +20,35 @@ int main() {
         for (int i = 0; i < t; ++i) {
             fin >> m >> n;
             data[m][n] = e;
-            Rectangle(map_image, m, n, {128, 128, 128});
+
+            cv::Scalar color;
+            switch (e) {
+                case LocationType::OBSTACLE:
+                    color = {128, 128, 128};
+                    break;
+                case LocationType::STREAM:
+                    color = {255, 144, 30};
+                    break;
+                case LocationType::DESERT:
+                    color = {96, 164, 244};
+                    break;
+                default:
+                    break;
+            }
+            Rectangle(map_image, m, n, color);
         }
     }
 
     Map map(data);
-    Location src{8, 3}, dst{9, 14};
-    auto path = map.AStar(src, dst);
-
     Grid(map_image);
+
+    // Location src{8, 3}, dst{9, 14};
+    Location src{10, 4}, dst{0, 35};
+    auto path = map.AStar(src, dst);
     Path(map_image, path);
-    Circle(map_image, src, {0, 255, 0});
-    Circle(map_image, dst, {0, 0, 255});
+
+    Circle(map_image, src, {50, 205, 50});
+    Circle(map_image, dst, {0, 69, 255});
 
     cv::imwrite("map.png", map_image);
     return (0);
