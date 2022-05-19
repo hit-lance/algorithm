@@ -3,6 +3,7 @@
 #include <limits>
 #include <queue>
 #include <set>
+#include <algorithm>
 
 Map::Map(const std::string& path) {
     std::ifstream fin(path);
@@ -24,7 +25,7 @@ std::vector<Location> Map::AStar(const Location& src, const Location& dst) {
     std::vector<Location> path;
     std::vector<std::vector<double>> dist_to(data_.size(),
                                              std::vector<double>(data_[0].size(), std::numeric_limits<double>::max()));
-    std::vector<std::vector<Location>> edge_to(data_.size(), std::vector<Location>());
+    std::vector<std::vector<Location>> edge_to(data_.size(), std::vector<Location>(data_[0].size()));
 
     auto h = [](const Location& a, const Location& b) {
         return sqrt(pow(a.first - b.first, 2) + pow(a.second - b.second, 2));
@@ -47,6 +48,7 @@ std::vector<Location> Map::AStar(const Location& src, const Location& dst) {
                 path.push_back(t);
                 t = edge_to[t.first][t.second];
             }
+            path.push_back(src);
         }
         pq.pop();
         if (s.find(p) != s.end()) {
