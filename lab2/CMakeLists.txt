@@ -4,4 +4,8 @@ project(lab2)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(main main.cpp map.cpp)
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+add_executable(main main.cpp map.cpp visualization.cpp)
+target_link_libraries(main ${OpenCV_LIBS})

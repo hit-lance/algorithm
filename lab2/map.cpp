@@ -1,27 +1,13 @@
 #include "map.h"
 
+#include <algorithm>
 #include <limits>
 #include <queue>
 #include <set>
-#include <algorithm>
 
-Map::Map(const std::string& path) {
-    std::ifstream fin(path);
-    size_t m, n;
-    fin >> m >> n;
-    data_ = std::vector<std::vector<LocationType>>(m, std::vector<LocationType>(n));
+Map::Map(const std::vector<std::vector<LocationType>>& data) { data_ = data; }
 
-    for (const auto e : {LocationType::OBSTACLE, LocationType::STREAM, LocationType::DESERT}) {
-        size_t t;
-        fin >> t;
-        for (int i = 0; i < t; ++i) {
-            fin >> m >> n;
-            data_[m][n] = e;
-        }
-    }
-}
-
-std::vector<Location> Map::AStar(const Location& src, const Location& dst) {
+std::vector<Location> Map::AStar(const Location& src, const Location& dst) const {
     std::vector<Location> path;
     std::vector<std::vector<double>> dist_to(data_.size(),
                                              std::vector<double>(data_[0].size(), std::numeric_limits<double>::max()));

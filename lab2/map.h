@@ -8,13 +8,13 @@
 
 enum class LocationType { COMMON = 0, OBSTACLE, STREAM, DESERT };
 
-using Location = std::pair<size_t, size_t>;
+using Location = std::pair<int, int>;
 
 class Map {
    public:
-    Map(const std::string& path);
+    Map(const std::vector<std::vector<LocationType>>& data);
 
-    std::vector<Location> AStar(const Location& src, const Location& dst);
+    std::vector<Location> AStar(const Location& src, const Location& dst) const;
 
     friend std::ostream& operator<<(std::ostream& os, const Map& map);
 
