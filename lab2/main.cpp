@@ -1,5 +1,5 @@
+#include <fstream>
 #include <opencv2/highgui.hpp>
-#include <queue>
 
 #include "map.h"
 #include "visualization.h"
@@ -44,12 +44,19 @@ int main() {
 
     // Location src{8, 3}, dst{9, 14};
     Location src{10, 4}, dst{0, 35};
-    auto path = map.AStar(src, dst);
-    Path(map_image, path);
-
     Circle(map_image, src, {50, 205, 50});
     Circle(map_image, dst, {0, 69, 255});
 
-    cv::imwrite("map.png", map_image);
-    return (0);
+    auto background = map_image.clone();
+
+    auto path = map.AStar(dst, src);
+    Path(map_image, path, {211, 85, 186});
+    cv::imwrite("map_astar.png", map_image);
+
+    auto [path1, path2] = map.BiAStar(src, dst);
+    Path(background, path1, {50, 205, 50});
+    Path(background, path2, {0, 69, 255});
+
+    cv::imwrite("map_biastar.png", background);
+    return 0;
 }

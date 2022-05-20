@@ -1,9 +1,6 @@
 #pragma once
 
-#include <cmath>
-#include <fstream>
 #include <iostream>
-#include <string>
 #include <vector>
 
 enum class LocationType { COMMON = 0, OBSTACLE, STREAM, DESERT };
@@ -15,6 +12,8 @@ class Map {
     Map(const std::vector<std::vector<LocationType>>& data);
 
     std::vector<Location> AStar(const Location& src, const Location& dst) const;
+
+    std::pair<std::vector<Location>, std::vector<Location>> BiAStar(const Location& src, const Location& dst) const;
 
     friend std::ostream& operator<<(std::ostream& os, const Map& map);
 
