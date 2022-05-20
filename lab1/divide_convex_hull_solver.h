@@ -12,5 +12,5 @@ class DivideConvexHullSolver : public ConvexHullSolver {
    private:
     vector<Point> Divide(vector<Point>::iterator first, vector<Point>::iterator last);
     vector<Point> Merge(vector<Point>& left_ch, vector<Point>& right_ch);
-    void Merge3(vector<Point>& result, const vector<Point>& a, const vector<Point>& b, const vector<Point>& c);
+    vector<Point> Merge3(const vector<Point>& a, const vector<Point>& b, const vector<Point>& c);
 };

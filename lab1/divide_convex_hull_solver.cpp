@@ -37,17 +37,10 @@ vector<Point> DivideConvexHullSolver::Divide(vector<Point>::iterator left, vecto
 }
 
 vector<Point> DivideConvexHullSolver::Merge(vector<Point>& left_ch, vector<Point>& right_ch) {
-    vector<Point> points;
-    auto p =
-        min_element(left_ch.begin(), left_ch.end(), [](const Point& a, const Point& b) { return a.first < b.first; });
-    points.push_back(*p);
-
-    left_ch.erase(p);
-
     auto u = max_element(right_ch.begin(), right_ch.end(),
-                         [&](const Point& a, const Point& b) { return isRight(a, points[0], b); });
+                         [&](const Point& a, const Point& b) { return isRight(a, left_ch[0], b); });
     auto v = min_element(right_ch.begin(), right_ch.end(),
-                         [&](const Point& a, const Point& b) { return isRight(a, points[0], b); });
+                         [&](const Point& a, const Point& b) { return isRight(a, left_ch[0], b); });
 
     assert(left_ch.size() > 0 && right_ch.size() > 1 && u != v);
 
@@ -75,7 +68,7 @@ vector<Point> DivideConvexHullSolver::Merge(vector<Point>& left_ch, vector<Point
 
     assert(right_ch_1.size() > 0 && right_ch_2.size() > 0);
 
-    Merge3(points, left_ch, right_ch_1, right_ch_2);
+    vector<Point> points = Merge3(left_ch, right_ch_1, right_ch_2);
 
     vector<Point> convex_hull{points[0], points[1], points[2]};
     size_t n = points.size();
@@ -89,10 +82,10 @@ vector<Point> DivideConvexHullSolver::Merge(vector<Point>& left_ch, vector<Point
     return convex_hull;
 }
 
-void DivideConvexHullSolver::Merge3(vector<Point>& result, const vector<Point>& a, const vector<Point>& b,
-                                    const vector<Point>& c) {
-    size_t m = a.size(), n = b.size(), o = c.size(), i = 0, j = 0, k = 0;
-    result.reserve(1 + m + n + o);
+vector<Point> DivideConvexHullSolver::Merge3(const vector<Point>& a, const vector<Point>& b, const vector<Point>& c) {
+    vector<Point> result;
+    result.push_back(a[0]);
+    size_t m = a.size(), n = b.size(), o = c.size(), i = 1, j = 0, k = 0;
 
     while (i < m && j < n && k < o) {
         if (isRight(a[i], result[0], b[j]) && isRight(a[i], result[0], c[k])) {
@@ -137,4 +130,5 @@ void DivideConvexHullSolver::Merge3(vector<Point>& result, const vector<Point>& 
     while (k < o) {
         result.push_back(c[k++]);
     }
+    return result;
 }
