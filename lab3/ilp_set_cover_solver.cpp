@@ -4,7 +4,6 @@
 
 #include <algorithm>
 #include <cmath>
-#include <iostream>
 #include <unordered_set>
 
 using namespace operations_research;
@@ -51,24 +50,11 @@ vector<unordered_set<int>> ILPSetCoverSolver::Solve(unordered_set<int> universe,
 
     solver->Solve();
 
-    for (size_t i =0;i<variables.size();++i) {
-        if(variables[i]->solution_value()>=1.0/max_frequency) {
+    for (size_t i = 0; i < variables.size(); ++i) {
+        if (variables[i]->solution_value() >= 1.0 / max_frequency) {
             cover.push_back(collection[i]);
         }
     }
 
-    // LOG(INFO) << "Solution:" << std::endl;
-    // LOG(INFO) << "Objective value = " << objective->Value();
-
-    // for (auto const v : variables) {
-    //     LOG(INFO) << v->solution_value();
-    // }
-
-    // for(auto e:coefficients) {
-    //     for(size_t i=0;i<e.size();++i) {
-    //         cout<<e[i]<<" ";
-    //     }
-    //     cout<<"\n";
-    // }
     return cover;
 }

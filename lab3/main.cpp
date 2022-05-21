@@ -4,11 +4,23 @@
 #include "ilp_set_cover_solver.h"
 
 int main() {
-    SetCoverSolver* s = new ILPSetCoverSolver();
+    // auto [universe, collection] = GenerateSet(2000);
     unordered_set<int> universe{1, 2, 3, 4, 5};
     vector<unordered_set<int>> collection{{1, 2, 3}, {2, 4}, {3, 4}, {4, 5}};
-    vector<unordered_set<int>> cover = s->Solve(universe, collection);
-    for (auto& s : cover) {
+
+    SetCoverSolver* s1 = new GreedySetCoverSolver();
+    vector<unordered_set<int>> cover1 = s1->Solve(universe, collection);
+    SetCoverSolver* s2 = new ILPSetCoverSolver();
+    vector<unordered_set<int>> cover2 = s2->Solve(universe, collection);
+
+    for (auto& s : cover1) {
+        for (auto item : s) {
+            cout << item << " ";
+        }
+        cout << endl;
+    }
+
+    for (auto& s : cover2) {
         for (auto item : s) {
             cout << item << " ";
         }
