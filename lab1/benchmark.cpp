@@ -11,7 +11,9 @@
 static void BM_EnumerateConvexHull(benchmark::State& state) {
     ConvexHullSolver* s = new EnumerateConvexHullSolver();
     for (auto _ : state) {
+        state.PauseTiming();
         vector<Point> points = GeneratePoints(state.range(0));
+        state.ResumeTiming();
         s->Solve(points);
     }
 }
@@ -20,7 +22,9 @@ BENCHMARK(BM_EnumerateConvexHull)->DenseRange(10, 100, 10);
 static void BM_GrahamConvexHullSolver(benchmark::State& state) {
     ConvexHullSolver* s = new GrahamConvexHullSolver();
     for (auto _ : state) {
+        state.PauseTiming();
         vector<Point> points = GeneratePoints(state.range(0));
+        state.ResumeTiming();
         s->Solve(points);
     }
 }
@@ -29,7 +33,9 @@ BENCHMARK(BM_GrahamConvexHullSolver)->DenseRange(10, 100, 10);
 static void BM_DivideConvexHullSolver(benchmark::State& state) {
     ConvexHullSolver* s = new DivideConvexHullSolver();
     for (auto _ : state) {
+        state.PauseTiming();
         vector<Point> points = GeneratePoints(state.range(0));
+        state.ResumeTiming();
         s->Solve(points);
     }
 }
