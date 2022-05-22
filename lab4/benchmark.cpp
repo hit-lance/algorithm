@@ -1,27 +1,25 @@
 #include <benchmark/benchmark.h>
 
+#include "quicksort.h"
 
-
-static void BM_Greedy(benchmark::State& state) {
-    SetCoverSolver* s = new GreedySetCoverSolver();
+static void BM_MyQuickSort(benchmark::State& state) {
     for (auto _ : state) {
         state.PauseTiming();
-        auto [universe, collection] = GenerateSet(state.range(0));
+        auto nums = GenerateNums(state.range(0));
         state.ResumeTiming();
-        s->Solve(universe, collection);
+        QuickSort(nums, 0, nums.size() - 1);
     }
 }
-BENCHMARK(BM_Greedy)->Arg(100)->Arg(1000)->Arg(5000);
+BENCHMARK(BM_MyQuickSort)->DenseRange(0, 100, 10);
 
-static void BM_ILP(benchmark::State& state) {
-    SetCoverSolver* s = new ILPSetCoverSolver();
+static void BM_STLSort(benchmark::State& state) {
     for (auto _ : state) {
         state.PauseTiming();
-        auto [universe, collection] = GenerateSet(state.range(0));
+        auto nums = GenerateNums(state.range(0));
         state.ResumeTiming();
-        s->Solve(universe, collection);
+        sort(nums.begin(), nums.end());
     }
 }
-BENCHMARK(BM_ILP)->Arg(100)->Arg(1000)->Arg(5000);
+BENCHMARK(BM_STLSort)->DenseRange(0, 100, 10);
 
 BENCHMARK_MAIN();

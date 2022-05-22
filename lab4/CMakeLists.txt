@@ -12,5 +12,5 @@ add_compile_options(-Wno-psabi)
 add_executable(main main.cpp quicksort.cpp)
 target_link_libraries(main)
 
-# add_executable(benchmark benchmark.cpp quicksort.cpp)
-# target_link_libraries(benchmark benchmark::benchmark)
+add_executable(benchmark benchmark.cpp quicksort.cpp)
+target_link_libraries(benchmark benchmark::benchmark)

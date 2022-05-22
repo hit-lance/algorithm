@@ -4,6 +4,7 @@
 
 random_device rd;
 mt19937 gen(rd());
+bernoulli_distribution d(0.5);
 
 vector<int> GenerateNums(int percent) {
     const int N = 1e6;
@@ -16,10 +17,7 @@ vector<int> GenerateNums(int percent) {
     return nums;
 }
 
-bool Compare(int a, int b) {
-    bernoulli_distribution d(0.5);
-    return (d(rd)) ? a < b : a <= b;
-}
+bool Compare(int a, int b) { return (d(rd)) ? a < b : a <= b; }
 
 void QuickSort(vector<int>& nums, int l, int r) {
     if (l < r) {
