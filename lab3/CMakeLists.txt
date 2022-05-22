@@ -5,7 +5,6 @@ project(lab3)
 set(CMAKE_CXX_STANDARD 20)
 
 find_package(benchmark REQUIRED)
-find_package(GTest REQUIRED)
 find_package(ortools CONFIG REQUIRED)
 
 add_compile_options(-Wno-psabi)
